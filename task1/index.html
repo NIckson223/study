@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Ex_1</h1>
+    <button> <a href="index1.html">Click</a></button>
+</body>
+<script>
+    
+
+    let id=100
+
+    
+    axios.get('https://jsonplaceholder.typicode.com/posts/'+id)
+    .then(res =>{
+        userId=res.data.userId
+        console.log('UserId:',res.data.userId,' id: ',res.data.id)
+        return axios.get('https://jsonplaceholder.typicode.com/users/'+userId)
+    })
+    .then(res=>{
+        user=res.data
+        console.log(res.data)
+        return axios.get('https://jsonplaceholder.typicode.com/comments?postId='+id)
+    })
+    .then(res=>{
+        res.data.forEach(element => {
+            console.log(element)
+        });
+    })
+    .catch(res =>{
+        console.log("requst undefind EROR: ",res.err)
+    })
+
+
+
+
+
+</script>
+</html>

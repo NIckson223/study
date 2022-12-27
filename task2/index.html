@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Ex_1</h1>
+    <button> <a href="index1.html">Click</a></button>
+</body>
+<script>
+    
+    let user=100
+    
+    function checkuser(url,user){
+        if(user===0){
+            user=user+1
+        }
+        axios.get(url+user)
+        .then(res=>{
+            console.log(res.data)
+            return axios.get('https://jsonplaceholder.typicode.com/users/?_start='+user+'&_end='+(user+10))
+        })
+        .then(res=>{
+            if (res.data.length>1){
+                console.log(res.data[res.data.length-1])
+            }
+        })
+        .catch(err=>{
+            console.log(err.response.statusText)
+            checkuser(url,user-10)
+        })
+        .catch(res=>{
+            console.log()
+        })
+        
+    }
+
+
+    checkuser('https://jsonplaceholder.typicode.com/users/',100)
+
+</script>
+</html>
